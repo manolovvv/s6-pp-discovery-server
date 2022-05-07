@@ -58,7 +58,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: latest
+          tags: i444652/discovery-service:latest
 
       
   
