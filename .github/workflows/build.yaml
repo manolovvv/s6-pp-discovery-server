@@ -34,8 +34,9 @@ jobs:
         run: ls -a
         
       - name: Check targeet
-        run: cd target
-        run: ls -a
+        run: |
+          cd target
+          ls -a
         
 #       - name: Check out the repo
 #         uses: actions/checkout@v3
