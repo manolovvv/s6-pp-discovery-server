@@ -53,15 +53,6 @@ jobs:
         with:
           images: i444652/discovery-service
       
-      - name: Check directory
-        run: ls -a
-        
-      - name: Check targeet
-        run: |
-          cd target
-          ls -a
-      
-      
       - name: Build and push Docker image
         uses: docker/build-push-action@v2
         with:
