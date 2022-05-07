@@ -28,7 +28,7 @@ jobs:
            distribution: 'temurin'
            java-version: '8'
       - name: Build java app
-        run: ./mvnw clean install
+        run: ./mvnw clean package
         
       - name: Check out the repo
         uses: actions/checkout@v3
