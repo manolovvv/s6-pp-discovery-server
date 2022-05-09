@@ -22,7 +22,7 @@ jobs:
     steps:
     
       - name: Check ip
-        run: ifconfig -a
+        run: ip addr show dev em1
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
       - name: Set up Java version
