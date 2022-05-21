@@ -40,9 +40,11 @@ jobs:
 #           export_default_credentials: true
           
       - name: Auth
+        id: 'auth'
         uses: 'google-github-actions/auth@v0'
         with:
          credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
+         create_credentials_file: true
          
 
       - name: 'Set up Cloud SDK'
@@ -50,12 +52,7 @@ jobs:
         
       - name: 'Use gcloud CLI'
         run: 'gcloud info'
-
-    
-      - name: Check ip
-        run: ip addr
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
+      
       - name: Set up Java version
         uses: actions/setup-java@v2
         with:
@@ -63,29 +60,15 @@ jobs:
            java-version: '8'
       - name: Build java app
         run: ./mvnw clean package
-      
-      - name: Check ip
-        run: ifconfig -a
-      
-      - name: Log in to Docker Hub
-        uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
-        with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-      
-      - name: Extract metadata (tags, labels) for Docker
-        id: meta
-        uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
-        with:
-          images: i444652/discovery-service
-      
-      - name: Build and push Docker image
-        uses: docker/build-push-action@v2
-        with:
-          context: .
-          push: true
-          tags: i444652/discovery-service:latest
-  
+
+
+        
+      - name: Build and push Docker
+        run: |
+          gcloud auth login --brief --cred-file="${{ steps.auth.outputs.credentials_file_path }}"
+          gcloud auth configure-docker europe-docker.pkg.dev
+          docker build -t europe-docker.pkg.dev/kalve-349610/kalve/server-server:latest .
+          docker image push europe-docker.pkg.dev/kalve-349610/kalve/discovery-server:lates
       
       
 
