@@ -50,7 +50,7 @@ jobs:
         run: |
           gcloud auth login --brief --cred-file="${{ steps.auth.outputs.credentials_file_path }}"
           gcloud auth configure-docker europe-docker.pkg.dev
-          docker build -t europe-docker.pkg.dev/kalve-349610/kalve/server-server:latest .
+          docker build -t europe-docker.pkg.dev/kalve-349610/kalve/discovery-server:latest .
           docker image push europe-docker.pkg.dev/kalve-349610/kalve/discovery-server:lates
       
       
